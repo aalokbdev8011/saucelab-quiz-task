@@ -21,9 +21,9 @@ main {
   transform: translateY(-50%);
 }
 .btn {
-  border: 1px solid #fb641b;
+  border: 1px solid #0aad0a;
   border-radius: 4px;
-  color: #fb641b;
+  color: #0aad0a;
   background-color: white;
   padding: 15px 30px;
   font-size: 20px;
@@ -33,6 +33,21 @@ main {
 .quesAns {
   background-color: #fff;
   width: 700px;
+  margin: auto;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: -1px 1px 20px -1px #ccc;
+  border: 1px solid #dadce0;
+  min-height: 179px;
+}
+
+.bolder {
+  font-weight: bolder;
+}
+
+.scoreBox {
+  background-color: #fff;
+  width: 300px;
   margin: auto;
   padding: 30px;
   border-radius: 10px;
@@ -86,7 +101,7 @@ main {
 }
 
 .submit {
-  background: #fb641b;
+  background: #0aad0a;
   border: 0px;
   color: white;
   width: 100%;
@@ -105,7 +120,7 @@ main {
 }
 
 .score-go {
-  color: #fb641b;
+  color: #0aad0a;
 }
 .night .score-go {
   color: #62fad6;

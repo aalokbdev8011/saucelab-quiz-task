@@ -6,9 +6,9 @@ import axios from "axios";
 import { data as staticData } from "./data";
 import GameOver from "./GameOver";
 
-function App() {
+const App = () => {
   const [isGameOver, setGameOver] = useState(false);
-  const [loader, setLoaded] = useState(true);
+  const [loader, setLoader] = useState(true);
   const [score, setScore] = useState(0);
   const [chanceCount, setChanceCount] = useState(3);
   const [isNightMode, setNightMode] = useState(false);
@@ -18,27 +18,13 @@ function App() {
   const getData = useCallback(() => {
     axios
       .get('https://eok9ha49itquif.m.pipedream.net/')
-      .then((data) => {
-        setData((d) => {
-          let res = [];
-          data?.data?.questions.forEach((elem1) => {
-            let flag = false;
-            d.forEach((elem2) => {
-              if (elem2.question === elem1.question) {
-                flag = true;
-              }
-            });
-            if (!flag) {
-              res.push(elem1);
-            }
-          });
-          return [...d, ...res];
-        });
-        setLoaded(false);
+      .then((response) => {
+        setData((d) => [...d, ...response.data.questions.filter((elem) => !d.some((elem2) => elem2.question === elem.question))]);
+        setLoader(false);
       })
-      .catch((error) => {
+      .catch(() => {
         setData(staticData);
-        setLoaded(false);
+        setLoader(false);
       });
   }, [setData]);
 
@@ -53,8 +39,9 @@ function App() {
       setGameOver(true);
     }
   }, [chanceCount]);
+
   const toggleNightMode = useCallback(() => {
-    setNightMode((isNightMode) => !isNightMode);
+    setNightMode((mode) => !mode);
   }, [setNightMode]);
 
   const incrementCurrentIndex = useCallback(() => {
@@ -83,7 +70,7 @@ function App() {
     setScore(0);
     setChanceCount(3);
     setData([]);
-    setLoaded(true);
+    setLoader(true);
     setCurrentIndex(0);
     setGameOver(false);
   }, []);
@@ -94,8 +81,8 @@ function App() {
         <div className="header-container">
           <span>Score: {score}</span>
           <span>Chances Left: {chanceCount}</span>
-          <button className="btn" onClick={toggleNightMode}>
-            {isNightMode ? "Light Mode" : "Dark Mode"}
+          <button className="bolder btn" onClick={toggleNightMode}>
+            {isNightMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           </button>
         </div>
       </header>
